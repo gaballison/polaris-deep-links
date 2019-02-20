@@ -1,0 +1,17 @@
+body {
+  padding: .5em;
+}
+
+#test {
+  padding-top: .5em;
+  font-size: 1.5em;
+}
+
+#output {
+  width: 705px;
+  height: 405px;
+}
+
+/* ***** 
+Make media query to change h1 display text size based on screen size
+*/
