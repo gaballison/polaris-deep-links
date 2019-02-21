@@ -1,13 +1,17 @@
+html {
+  height: 100%;
+}
+
 body {
+  height: 100vh;
+}
+
+.container {
   padding: .5em;
+  width: 100%;
 }
 
-#test {
-  padding-top: .5em;
-  font-size: 1.5em;
-}
-
-#output {
+#preview {
   width: 705px;
   height: 405px;
 }
@@ -20,10 +24,26 @@ body {
   box-shadow: 0px 2px 5px 0.5px dimgray;
 }
 
+
 #textarea-url {
   font-family: monospace;
+  font-size: 1.3em;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px 0.5px dimgray;
+}
+
+#img-check {
+  color: green;
+}
+
+footer {
+  width: 100%;
+  margin-top: auto;
+  background: gainsboro;
+  padding: 20px;
+  text-align: center;
 }
 
 /* ***** 
-Make media query to change h1 display text size based on screen size
+Make media query to resize iframe based on screen size
 */
