@@ -99,10 +99,10 @@ $(document).ready(function () {
     } else {
       url = "You haven't entered any data!";
     }
-
+ 
     $('#results-url').html(`<h4 class="text-muted">Encoded URL</h4>
-        <textarea class="col-auto d-block border border-secondary" cols="50" rows="5" id="textarea-url">${url}</textarea>
-        <div class="d-flex justify-content-between mt-3"><button class="btn btn-secondary d-inline-block" id="btn-copy"><i class="fa fas-clipboard"></i> &nbsp; Copy link</button><span id="copy-status" class="text-success"></span><a class="btn btn-primary d-inline-block" id="btn-visit" href="${url}" target="_blank"><i class="fa fas-sign-out-alt"></i> Check Polaris</a></div>`);
+        <textarea class="form-control border border-secondary" rows="5" col="10" id="textarea-url">${url}</textarea>
+        <div class="d-flex justify-content-between mt-3"><button class="btn btn-outline-secondary d-inline-block" id="btn-copy"><i class="fas fa-clipboard"></i> &nbsp; Copy link</button><span id="copy-status" class="text-success align-self-center"></span><a class="btn btn-outline-primary d-inline-block" id="btn-visit" href="${url}" target="_blank"><i class="fas fa-sign-out-alt"></i> &nbsp; Check Polaris</a></div>`);
 
     // see if it will copy properly
     try {
@@ -110,18 +110,19 @@ $(document).ready(function () {
         selectText('#textarea-url');
         document.execCommand("copy");
         $('#textarea-url').addClass('border border-success');
-        $('#btn-copy').removeClass('btn-secondary').addClass('btn-success');
-        $('#copy-status').html(`<img src="img/check.svg" class="text-success" id="img-check" alt="Success!"> <i class="fa fas-check"></i> Copied!`);
+        $('#btn-copy').removeClass('btn-outline-secondary').addClass('btn-outline-success');
+        $('#copy-status').html(`<i class="fas fa-check-circle fa-lg"></i> Copied!`);
         $('#textarea-url').blur(function () {
           $(this).removeClass('border-success').addClass('border-secondary');
-          $('#btn-copy').removeClass('btn-success').addClass('btn-secondary');
+          $('#btn-copy').removeClass('btn-outline-success').addClass('btn-outline-secondary');
           $('#copy-status').html("");
         });
       });
 
     } catch (error) {
       $('#textarea-url').addClass('border border-danger');
-      $('#btn-copy').removeClass('btn-secondary').addClass('btn-danger');
+      $('#btn-copy').removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+      $('#copy-status').removeClass('text-success').addClass('text-danger').html(`<i class="fas fa-times-circle fa-lg"></i> ERROR`);
       console.error("Ooops, unable to copy and select. " + error);
     }
 

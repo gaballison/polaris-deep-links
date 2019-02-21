@@ -32,8 +32,9 @@ body {
   box-shadow: 0px 2px 5px 0.5px dimgray;
 }
 
-#img-check {
-  color: green;
+textarea {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 footer {
