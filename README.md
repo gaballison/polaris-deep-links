@@ -1,8 +1,8 @@
 # Polaris Deep Link Generator
 
-This is a tool created for my [Code Louisville](https://codelouisville.org/) front end web development portfolio. I maintain [my library's website](https://jefflibrary.org) and one of my monthly tasks is updating the page listing what all of our [book clubs](https://jefflibrary.org/events/book-clubs) are reading that month. However, one of the frustrating things I've encountered is not being able to copy a link to a specific item directly from our online catalog; the urls are session-specific and so don't work as permanent links.
+This is a tool created for my [Code Louisville](https://codelouisville.org/) front end web development portfolio. I maintain [my library's website](https://jefflibrary.org) and one of my monthly tasks is updating the page listing what all of our [book clubs](https://jefflibrary.org/events/book-clubs) are reading that month. However, one of the frustrating things I've encountered is not being able to copy a link to a specific item directly from [our online catalog](http://jeffersonville.polarislibrary.com); the urls are session-specific and so don't work as permanent links.
 
-The simplest solution I've found so far is to use what Polaris (our integrated library system) calls "deep links" to search results (instead of to specific item records), and these links have to be properly [percent-encoded/URL-encoded](https://www.w3schools.com/tags/ref_urlencode.asp). Doing that manually is tedious so I wanted to create an app that would easily generate a properly encoded URL for me. It also includes a button to test the resulting URL which then also allows me to check the catalog to see if we actually own that item, since sometimes our clubs read books we don't have in our collection.
+The simplest solution I've found so far is to use what our integrated library system, Polaris, calls "deep links" to search results (instead of to specific item records), and these links have to be properly [percent-encoded/URL-encoded](https://www.w3schools.com/tags/ref_urlencode.asp). Doing that manually is tedious so I wanted to create an app that would easily generate a properly encoded URL for me. It also includes a button to test the resulting URL which then also allows me to check the catalog to see if we actually own that item, since sometimes our clubs read books we don't have in our collection.
 
 ## Resources Used
 
@@ -13,15 +13,15 @@ The simplest solution I've found so far is to use what Polaris (our integrated l
 ## Custom CSS Classes
 
 1. ```css
-    .form-wrapper {
-        background: #dedede;
-        padding: .8em;
-        border: solid 1px gainsboro;
-        border-radius: 10px;
-        box-shadow: 0px 2px 5px 0.5px dimgray;
+    footer {
+        width: 100%;
+        margin-top: auto;
+        font-size: .7em;
+        padding: 20px;
+        text-align: center;
     }
     ```
-    Selects the wrapper div with the class `form-wrapper` and styles it with a light grey background, increased padding, slightly rounded edges, and a drop shadow.
+    Selects footer and styles it with a small font size, 20 pixels of padding, and centered font. The `margin-top: auto` makes it sticky because the `body` has uses [Bootstrap's](https://getbootstrap.com) `d-flex flex-column` classes to make it a flexbox layout.
 2. ```css
     #textarea-url {
         font-family: monospace;
@@ -64,20 +64,20 @@ The simplest solution I've found so far is to use what Polaris (our integrated l
             let matches = input.match(/\w*/g);
             let len = matches.length;
 
-            /*  the surname is the last item in the array,               *
-             *  but array always ends in blank space so need length - 2  */
+            /*  the surname is the last item in the array,               
+                but array always ends in blank space so need length - 2  */
             let sur = matches[len - 2];
 
             // format author in Last, First Middle name format
             let author = sur + ",+";
 
-            /*  loop through the rest of the matches   *
-             *  and add + after each name if multiple  */
+            /*  loop through the rest of the matches   
+                and add + after each name if multiple  */
             for (let i = 0; i < len - 2; i++) {
                 if (matches[i] != "") {
 
-                    /*  if the name is the last one before the surname   *
-                     *  don't add a + after it                           */    
+                    /*  if the name is the last one before the surname   
+                        don't add a + after it                           */    
                     if (i == len - 4) {
                         author += matches[i];
                     } else {
@@ -96,4 +96,4 @@ The simplest solution I've found so far is to use what Polaris (our integrated l
 
 ## Future Improvements
 
-Ideally I'd like to return an item count based on the search parameters, but the only way I've seen to do that is using the [Polaris API (PAPI)](http://developer.polarislibrary.com/), which would require some back-end scripting to handle authentication securely. Since I want this to work on Github Pages, back end programs aren't an option for now.
+Ideally I'd like to just return an item count based on the search parameters, but the only way I've seen to do that is using the [Polaris API (PAPI)](http://developer.polarislibrary.com/), which would require some back-end scripting to handle authentication securely. Since I want this to work on Github Pages, back end programs aren't an option for now.

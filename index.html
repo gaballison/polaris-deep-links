@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
 
         <link rel="stylesheet" href="css/style.css">
@@ -20,52 +20,59 @@
     <body class="d-flex flex-column">
         <div class="container flex-grow-1">
             <header class="row">
-                <div class="col text-center">
+                <div class="col text-center mt-4">
                     <h1>Encode a URL</h1>
                     <p class="lead">Take some input and encode it so that it makes a properly formatted <a
-                            href="http://developer.polarislibrary.com/" target="_blank">Polaris</a> query</p>
+                            href="http://developer.polarislibrary.com/" target="_blank" class="link">Polaris</a> query</p>
                 </div>
             </header>
 
             <div class="row">
                 <!-- LEFT -->
-                <div class="col-md-7 mx-auto">
-                    <!-- start form -->
-                    <div class="form-wrapper">
-                        <h4 class="mb-2 text-muted">Book Metadata</h4>
+                <div class="col-11 col-md-6 mx-auto mb-4">
 
-                        <div class="form-group row">
-                            <label for="title" class="col-md-2 col-form-label">Title:</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="title"
-                                    placeholder="e.g. Where'd You Go, Bernadette">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="author" class="col-md-2 col-form-label">Author:</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="author" placeholder="e.g. J. K. Rowling">
-                            </div>
-                        </div>
-                        <!-- SUBMIT -->
-                        <div class="form-row d-flex justify-content-between">
-                            <button class="btn btn-primary mx-3" id="btn-submit">Encode It!</button>
-
-                            <button class="btn btn-warning mx-3" id="btn-clear">Clear Form</button>
+                    <div class="card mb-3">
+                        <h3 class="card-header">Book Metadata</h3>
+                    
+                        <div class="card-body">
+                            <form id="form-search">
+                                <div class="form-group row">
+                                    <label for="title" class="col-md-2 col-form-label">Title:</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="title" placeholder="e.g. Where'd You Go, Bernadette">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="author" class="col-md-2 col-form-label">Author:</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="author" placeholder="e.g. J. K. Rowling">
+                                    </div>
+                                </div>
+                        
+                                <div class="form-row d-flex justify-content-between mt-4">
+                                    <button class="btn btn-primary mx-3 col-md-4 mb-3 mb-md-0" id="btn-submit" type="submit" disabled><i class="fas fa-code"></i>
+                                        &nbsp; Encode It!</button>
+                        
+                                    <button class="btn btn-danger mx-3 col-md-4" id="btn-clear"><i class="fas fa-times-circle" ></i> &nbsp;
+                                        Clear Form</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <!-- / end form -->
-                    <div class="row mt-5">
-                        <div class="col form-group" id="results-url"></div>
+                   
+                    
+                </div>
+                <div class="col-11 col-md-6 mx-auto">
+                    <div class="row">
+                        <div class="col form-group" id="results"></div>
                     </div>
                 </div>
-
             </div>
 
         </div> <!-- / CONTAINER -->
 
         <footer class="flex-shrink-0 mt-auto">
-            <a href="https://github.com/gaballison/polaris-deep-links" target="_blank">View the code on Github</a>
+            <a href="https://github.com/gaballison/polaris-deep-links" target="_blank" class="link">View the code on Github</a>
         </footer>
 
         <!-- JavaScript -->

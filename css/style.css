@@ -4,6 +4,29 @@ html {
 
 body {
   height: 100vh;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #6610f2;
+  transition: width .3s;
+}
+
+.link:hover::after {
+  width: 100%;
 }
 
 .container {
@@ -11,25 +34,17 @@ body {
   width: 100%;
 }
 
-#preview {
-  width: 705px;
-  height: 405px;
-}
-
 .form-wrapper {
   background: #dedede;
   padding: .8em;
   border: solid 1px gainsboro;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px 0.5px dimgray;
+  border-radius: 5px;
+  box-shadow: 0px 1px 7px 0.1px dimgray;
 }
 
 
 #textarea-url {
-  font-family: monospace;
-  font-size: 1.3em;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px 0.5px dimgray;
+  font-size: 1.2em;
 }
 
 textarea {
@@ -40,11 +55,7 @@ textarea {
 footer {
   width: 100%;
   margin-top: auto;
-  background: gainsboro;
+  font-size: .7em;
   padding: 20px;
   text-align: center;
 }
-
-/* ***** 
-Make media query to resize iframe based on screen size
-*/
