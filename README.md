@@ -8,6 +8,7 @@ The simplest solution I've found so far is to use what our integrated library sy
 
 * [jQuery](https://jquery.com)
 * [Bootstrap](https://getbootstrap.com)
+* [Bootswatch Theme: Pulse] (https://bootswatch.com/pulse/)
 
 
 ## Custom CSS Classes
@@ -57,27 +58,30 @@ The simplest solution I've found so far is to use what our integrated library sy
     Function that takes a single argument (the value of the `title` form field) and checks if the value is empty. If not, it first runs the value through JavaScript's [native](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) `encodeURIComponent()` function. That doesn't encode apostrophes, so it then uses the `.replace()` string method to replace them with the correct URI encoding. All spaces are converted to `%20` in the original method, but Polaris requires words to be separated by `+` so the next line uses the same `.replace()` method to make that change. Finally the finished string is assigned to the `title` property of the `link` object created at the beginning of my JS file.
 2. ```javascript
     const encodeAuthor = inputAuthor => {
-        if (inputAuthor !== "") {
-            let input = inputAuthor.trim();
+        let input = inputAuthor.trim();
 
-            // create array of individual words from the input
-            let matches = input.match(/\w*/g);
-            let len = matches.length;
+        // create array of individual words from the input
+        let matches = input.match(/\w*/g);
+        let len = matches.length;
 
-            /*  the surname is the last item in the array,               
-                but array always ends in blank space so need length - 2  */
-            let sur = matches[len - 2];
+        /*  the surname is the last item in the array,
+            but array always ends in blank space so need length - 2  */
+        let sur = matches[len - 2];
+        let author = "";
 
-            // format author in Last, First Middle name format
-            let author = sur + ",+";
+        if (len < 2) {
+            author = "";
+        } else if (len == 2) {
+            author = sur;
+        } else {
+            author = sur + ",+";
 
-            /*  loop through the rest of the matches   
+            /*  loop through the rest of the matches
                 and add + after each name if multiple  */
             for (let i = 0; i < len - 2; i++) {
                 if (matches[i] != "") {
-
-                    /*  if the name is the last one before the surname   
-                        don't add a + after it                           */    
+                    /*  if the name is the last one before the surname
+                        don't add a + after it                           */
                     if (i == len - 4) {
                         author += matches[i];
                     } else {
@@ -85,10 +89,9 @@ The simplest solution I've found so far is to use what our integrated library sy
                     }
                 }
             }
-                link.author = author;
-        } else {
-            link.author = "";
         }
+        
+        link.author = author;
     };
     ```
     Function that takes the value of the `author` form field as an argument and first checks to see if the value is empty. If not, it trims whitespace from the beginning and end of the input. It then creates an array consisting of each word in the input, using the `.match()` method. Because the last value of this array is always an empty string, we use the text in the penultimate position in the array as the surname, and then loop through the rest of the array to build the author query string in the format of `LastName,+FirstName+MiddleName`. This is then assigned to the `author` property of the `link` object.

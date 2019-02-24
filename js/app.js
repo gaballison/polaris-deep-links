@@ -8,7 +8,6 @@ $(document).ready(function () {
     url: ""
   };
 
-
   /************************
    *      FUNCTIONS       *
    ***********************/
@@ -34,26 +33,37 @@ $(document).ready(function () {
     // create array of individual words from the input
     let matches = input.match(/\w*/g);
     let len = matches.length;
+    console.log(`There are ${len} items in matches`);
+    console.dir(matches);
 
     /*  the surname is the last item in the array,
         but array always ends in blank space so need length - 2  */
     let sur = matches[len - 2];
-    let author = sur + ",+";
+    let author = "";
 
-    /*  loop through the rest of the matches
+    if (len < 2) {
+      author = "";
+    } else if (len == 2) {
+      author = sur;
+    } else {
+      author = sur + ",+";
+
+      /*  loop through the rest of the matches
         and add + after each name if multiple  */
-    for (let i = 0; i < len - 2; i++) {
-      if (matches[i] != "") {
+      for (let i = 0; i < len - 2; i++) {
+        if (matches[i] != "") {
 
-        /*  if the name is the last one before the surname
-            don't add a + after it                           */
-        if (i == len - 4) {
-          author += matches[i];
-        } else {
-          author += `${matches[i]}+`;
+          /*  if the name is the last one before the surname
+              don't add a + after it                           */
+          if (i == len - 4) {
+            author += matches[i];
+          } else {
+            author += `${matches[i]}+`;
+          }
         }
       }
     }
+    
     link.author = author;
   };
 
@@ -91,7 +101,7 @@ $(document).ready(function () {
 
             <textarea class="form-control border border-secondary text-monospace" rows="4" col="10" id="textarea-url">${url}</textarea>
                 
-            <a class="btn btn-primary btn-lg btn-block mt-3" id="btn-visit" href="${url}" target="_blank"><i class="fas fa-book fa-lg"></i> &nbsp; Check Polaris</a>
+            <a class="btn btn-primary btn-lg btn-block mt-0" id="btn-visit" href="${url}" target="_blank"><i class="fas fa-search"></i> &nbsp; Check Polaris &nbsp; <i class="fas fa-angle-double-right fa-lg"></i></a>
         `);
   };
 
