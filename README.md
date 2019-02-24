@@ -8,7 +8,7 @@ The simplest solution I've found so far is to use what our integrated library sy
 
 * [jQuery](https://jquery.com)
 * [Bootstrap](https://getbootstrap.com)
-* [Bootswatch Theme: Pulse] (https://bootswatch.com/pulse/)
+* [Bootswatch Theme: Pulse](https://bootswatch.com/pulse/)
 
 
 ## Custom CSS Classes
