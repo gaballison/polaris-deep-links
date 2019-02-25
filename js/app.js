@@ -2,10 +2,12 @@ $(document).ready(function () {
 
   // Define the "link" object to hold all formatted data
   const link = {
-    title: "",
-    author: "",
-    prefix: "http://jeffersonville.polarislibrary.com/view.aspx?",
-    url: ""
+    titlePolaris: "",
+    authorPolaris: "",
+    authorNormal: "",
+    prefixPolaris: "http://jeffersonville.polarislibrary.com/view.aspx?",
+    prefixWorldCat: "https://www.worldcat.org/search?q=", 
+    prefixGoogle: "https://www.google.com/search?safe=strict&tbm=isch&q=book+cover+",
   };
 
   /************************
@@ -23,7 +25,7 @@ $(document).ready(function () {
     let space = apos.replace(/%20/g, "+");
 
     // assign the resulting encoded string to the "title" property of the link object
-    link.title = space;
+    link.titlePolaris = space;
   };
 
   // FUNCTION to encode the author
@@ -31,7 +33,7 @@ $(document).ready(function () {
     let input = inputAuthor.trim();
 
     // create array of individual words from the input
-    let matches = input.match(/\w*/g);
+    let matches = input.match(/[\w.-]*/g);
     let len = matches.length;
     console.log(`There are ${len} items in matches`);
     console.dir(matches);
@@ -41,6 +43,7 @@ $(document).ready(function () {
     let sur = matches[len - 2];
     let author = "";
 
+    // Create Polaris-formatted Author [LastName, FirstName]
     if (len < 2) {
       author = "";
     } else if (len == 2) {
@@ -63,26 +66,55 @@ $(document).ready(function () {
         }
       }
     }
-    
-    link.author = author;
+    link.authorPolaris = author;
+
+    // CREATE GOOGLE & WORLDCAT-FORMATTED AUTHOR
+    let authorGoogle = "";
+    for (let j = 0; j < len - 1; j++) {
+      if (matches[j] != "") {
+
+        /*  if the name is the last one before the surname
+            don't add a + after it                           */
+        if (j == len - 2) {
+          authorGoogle += matches[j];
+        } else {
+          authorGoogle += `${matches[j]}+`;
+        }
+      }
+    }
+    link.authorNormal = authorGoogle;
+
   };
 
   // FUNCTION to assemble the URL based on the values of the link object
   const buildURL = () => {
-    let url = "";
+    let url = {
+      polaris: "",
+      google: "",
+      worldcat: ""
+    };
 
-    // construct the URL based on existence of title &/or author
-    if (link.title != "" && link.author != "") {
-      url += `${link.prefix}title=${link.title}&author=${link.author}`;
+    // construct the URLs based on existence of title &/or author
+    if (link.titlePolaris != "" && link.authorPolaris != "") {
+      url.polaris += `${link.prefixPolaris}title=${link.titlePolaris}&author=${link.authorPolaris}`;
       $('#btn-submit').prop('disabled', false);
-    } else if (link.title == "" && link.author != "") {
-      url += `${link.prefix}author=${link.author}`;
+      url.worldcat += `${link.prefixWorldCat}ti:${link.titlePolaris}+au:${link.authorNormal}`;
+      url.google += `${link.prefixGoogle}${link.titlePolaris}+by+${link.authorNormal}`;
+
+    } else if (link.titlePolaris == "" && link.authorPolaris != "") {
+      url.polaris += `${link.prefixPolaris}author=${link.authorPolaris}`;
       $('#btn-submit').prop('disabled', false);
-    } else if (link.title != "" && link.author == "") {
-      url += `${link.prefix}title=${link.title}`;
+      url.worldcat += `${link.prefixWorldCat}au:${link.authorNormal}`;
+      url.google += `${link.prefixGoogle}${link.authorNormal}`;
+
+    } else if (link.titlePolaris != "" && link.authorPolaris == "") {
+      url.polaris += `${link.prefixPolaris}title=${link.titlePolaris}`;
       $('#btn-submit').prop('disabled', false);
+      url.worldcat += `${link.prefixWorldCat}ti:${link.titlePolaris}`;
+      url.google += `${link.prefixGoogle}${link.titlePolaris}`;
+
     } else {
-      url = "";
+      url.polaris, url.worldcat, url.google = "";
       $('#btn-submit').prop('disabled', true);
     }
     return url;
@@ -99,9 +131,14 @@ $(document).ready(function () {
                 <button id="btn-copy" class="btn btn-link text-decoration-none"><i class="fas fa-clipboard"></i> Copy</button>
             </div>
 
-            <textarea class="form-control border border-secondary text-monospace" rows="4" col="10" id="textarea-url">${url}</textarea>
+            <textarea class="form-control border border-secondary text-monospace" rows="4" col="10" id="textarea-url">${url.polaris}</textarea>
                 
-            <a class="btn btn-primary btn-lg btn-block mt-0" id="btn-visit" href="${url}" target="_blank"><i class="fas fa-search"></i> &nbsp; Check Polaris &nbsp; <i class="fas fa-angle-double-right fa-lg"></i></a>
+            <a class="btn btn-primary btn-lg btn-block mt-0" id="btn-visit" href="${url.polaris}" target="_blank"><i class="fas fa-search"></i> &nbsp; Check Polaris &nbsp; <i class="fas fa-angle-double-right fa-lg"></i></a>
+
+            <div class="d-flex justify-content-between mt-2">
+                <a class="btn btn-outline-secondary btn-md" id="btn.worldcat" href="${url.worldcat}" target="_blank"><i class="fas fa-atlas fa-lg"></i> &nbsp; Check WorldCat</a>
+                <a class="btn btn-outline-secondary btn-md" id="btn-google" href="${url.google}" target="_blank"><i class="fas fa-images fa-lg"></i> &nbsp; Check Google Images</a>
+            </div>
         `);
   };
 
@@ -202,7 +239,8 @@ $(document).ready(function () {
     event.preventDefault();
     $(':text').val('');
     $('#btn-submit').prop('disabled', true);
-    link.author = "";
-    link.title = "";
+    link.authorPolaris = "";
+    link.authorNormal = "";
+    link.titlePolaris = "";
   });
 });
