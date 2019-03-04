@@ -157,6 +157,14 @@ $(document).ready(function () {
   };
 
 
+  // FUNCTION to add or remove column sizing for iframes
+  const checkCol = () => {
+    if($('#leftCol').hasClass('col-md-6')) {
+      $('#leftCol').removeClass('col-md-6').addClass('col-md-9');
+      $('#preview').empty();
+    };
+  };
+
 
   // FUNCTION to select the textarea so we can copy it to clipboard
   const selectText = textarea => {
@@ -240,6 +248,8 @@ $(document).ready(function () {
     tryCopy();
     if ($('#showPreview').is(':checked')) {
       buildPreview(url);
+    } else {
+      checkCol();
     };
     event.preventDefault();
   });
@@ -251,13 +261,15 @@ $(document).ready(function () {
     tryCopy();
     if ($('#showPreview').is(':checked')) {
       buildPreview(url);
+    } else {
+      checkCol();
     };
   });
 
   // Clear the form and delete all of the results HTML
   $('#btn-clear').click(function (event) {
     $('#results').empty();
-    $('#preview').empty();
+    checkCol();
     event.preventDefault();
     $(':text').val('');
     $('#showPreview').prop('checked', false);
@@ -265,8 +277,5 @@ $(document).ready(function () {
     link.authorPolaris = "";
     link.authorNormal = "";
     link.titlePolaris = "";
-    if($('#leftCol').hasClass('col-md-6')) {
-      $('#leftCol').removeClass('col-md-6').addClass('col-md-9');
-    };
   });
 });
