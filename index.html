@@ -1,89 +1,102 @@
 <!DOCTYPE html>
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
-        <title>Polaris URL Encoder</title>
-        
-    </head>
+    <title>Polaris URL Encoder</title>
 
-    <body class="d-flex flex-column">
-        <div class="container flex-grow-1">
-            <header class="row">
-                <div class="col text-center mt-4">
-                    <h1>Encode a URL</h1>
-                    <p class="lead">Take some input and encode it so that it makes a properly formatted <a
-                            href="http://developer.polarislibrary.com/" target="_blank" class="link">Polaris</a> query</p>
-                </div>
-            </header>
+</head>
 
-            <div class="row">
-                <!-- LEFT -->
-                <div class="col-11 col-lg-6 mx-auto mb-3">
+<body class="d-flex flex-column">
+    <div class="container flex-grow-1">
+        <header class="row">
+            <div class="col text-center mt-4">
+                <h1 class="display-4">Encode a URL</h1>
+                <p class="lead">Take some input and encode it so that it makes a properly formatted <a
+                        href="http://developer.polarislibrary.com/" target="_blank" class="link">Polaris</a> query</p>
+            </div>
+        </header>
 
-                    <div class="card mb-3">
-                        <h3 class="card-header">Book Metadata</h3>
-                    
-                        <div class="card-body">
-                            <form id="form-search">
-                                <div class="form-group row">
-                                    <label for="title" class="col-md-2 col-form-label">Title:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="title" placeholder="e.g. Where'd You Go, Bernadette">
-                                    </div>
+        <div class="row">
+            <!-- LEFT -->
+            <div class="col-11 col-md-9 mx-auto mb-3" id="leftCol">
+
+                <div class="card bg-light mb-3">
+                    <h3 class="card-header">Book Metadata</h3>
+
+                    <div class="card-body">
+                        <form id="form-search">
+                            <div class="form-group row">
+                                <label for="title" class="col-md-2 col-form-label">Title:</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="title"
+                                        placeholder="e.g. Where'd You Go, Bernadette">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="author" class="col-md-2 col-form-label">Author:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="author" placeholder="e.g. J. K. Rowling">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="author" class="col-md-2 col-form-label">Author:</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="author"
+                                        placeholder="e.g. J. K. Rowling">
                                 </div>
-                        
-                                <div class="form-row d-md-flex justify-content-center justify-content-md-between  mt-4">
-                                    
-                                    <button class="btn btn-primary mx-1 mx-md-3 col-md-4 mb-3 mb-md-0" id="btn-submit" type="submit" disabled><i
-                                            class="fas fa-code"></i>
-                                        &nbsp; Encode It!</button>                                 
-                        
-                                    <button class="btn btn-danger mx-1 mx-md-3 col-md-4" id="btn-clear"><i class="fas fa-times-circle" ></i> &nbsp;
-                                        Clear Form</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input col-md-2" id="showPreview">
+                                <label class="custom-control-label col-md-10" for="showPreview">Show iFrame preview of
+                                    Polaris results</label>
+                            </div>
+
+                            <div class="form-row d-md-flex justify-content-center justify-content-md-between  mt-4">
+
+                                <button class="btn btn-primary mx-1 mx-md-3 col-md-4 mb-3 mb-md-0" id="btn-submit"
+                                    type="submit" disabled><i class="fas fa-code"></i>
+                                    &nbsp; Encode It!</button>
+
+                                <button class="btn btn-danger mx-1 mx-md-3 col-md-4" id="btn-clear"><i
+                                        class="fas fa-times-circle"></i> &nbsp;
+                                    Clear Form</button>
+                            </div>
+                        </form>
                     </div>
-                    
                 </div>
-                <div class="col-11 col-lg-6 mx-auto">
-                    <div class="row">
-                        <div class="col form-group" id="results"></div>
-                    </div>
-                </div>
+
+                <div class="mt-4" id="results"></div>
+
             </div>
 
-        </div> <!-- / CONTAINER -->
+            <div class="col-11 mx-auto" id="preview">
 
-        <footer class="flex-shrink-0 mt-auto">
-            <a href="https://github.com/gaballison/polaris-deep-links" target="_blank" class="link">View the code on Github</a>
-        </footer>
+            </div>
+        </div>
 
-        <!-- JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-        <script src="js/app.js"></script>
-    </body>
+    </div> <!-- / CONTAINER -->
+
+    <footer class="flex-shrink-0 mt-auto">
+        <a href="https://github.com/gaballison/polaris-deep-links" target="_blank" class="link">View the code on
+            Github</a>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+</body>
+
 </html>

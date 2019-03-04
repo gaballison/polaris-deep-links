@@ -5,7 +5,7 @@ $(document).ready(function () {
     titlePolaris: "",
     authorPolaris: "",
     authorNormal: "",
-    prefixPolaris: "http://jeffersonville.polarislibrary.com/view.aspx?",
+    prefixPolaris: "https://jeffersonville.polarislibrary.com/view.aspx?",
     prefixWorldCat: "https://www.worldcat.org/search?q=", 
     prefixGoogle: "https://www.google.com/search?safe=strict&tbm=isch&q=book+cover+",
   };
@@ -125,22 +125,37 @@ $(document).ready(function () {
 
     // add the HTML for the constructed URL, including ability to select and copy
     $('#results').html(`
+      <div class="card bg-light mb-3">
+        <h3 class="card-header">Encoded URL <small><span id="copy-status" class="text-success float-right"></span></small></h3>
+          <div class="card-body">
+            <textarea class="form-control border border-secondary text-monospace" rows="3" col="10" id="textarea-url">${url.polaris}</textarea>
+
             <div class="d-flex justify-content-between">
-                <h3 class="text-muted">Encoded URL</h3> 
-                <span id="copy-status" class="text-success align-self-center"></span> 
-                <button id="btn-copy" class="btn btn-link text-decoration-none"><i class="fas fa-clipboard"></i> Copy</button>
-            </div>
+              <button id="btn-copy" class="btn btn-primary mt-2"><i class="fas fa-clipboard"></i> &nbsp; Copy</button>
 
-            <textarea class="form-control border border-secondary text-monospace" rows="4" col="10" id="textarea-url">${url.polaris}</textarea>
-                
-            <a class="btn btn-primary btn-lg btn-block mt-0" id="btn-visit" href="${url.polaris}" target="_blank"><i class="fas fa-search"></i> &nbsp; Check Polaris &nbsp; <i class="fas fa-angle-double-right fa-lg"></i></a>
-
-            <div class="d-flex justify-content-between mt-2">
-                <a class="btn btn-outline-secondary btn-md" id="btn.worldcat" href="${url.worldcat}" target="_blank"><i class="fas fa-atlas fa-lg"></i> &nbsp; Check WorldCat</a>
-                <a class="btn btn-outline-secondary btn-md" id="btn-google" href="${url.google}" target="_blank"><i class="fas fa-images fa-lg"></i> &nbsp; Check Google Images</a>
-            </div>
-        `);
+              <div class="btn-group mt-2" role="group" aria-label="Check links">
+                <a class="btn btn-info" href="${url.polaris}" target="_blank"><i class="fas fa-search"></i> Polaris</a>
+                <a class="btn btn-info" href="${url.worldcat}" target="_blank"><i class="fas fa-globe"></i> WorldCat</a>
+                <a class="btn btn-info" href="${url.google}" target="_blank"><i class="fas fa-images"></i> Google Images</a>
+              </div>
+            </div>          
+          </div>
+      </div>
+    `);
   };
+
+
+  // FUNCTION to build preview if option is checked
+  const buildPreview = url => {
+    $('#leftCol').removeClass('col-md-9').addClass('col-md-6');
+    $('#preview').addClass('col-md-6');
+    $('#preview').html(`
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="${url.polaris}"></iframe>
+      </div>
+    `);
+  };
+
 
 
   // FUNCTION to select the textarea so we can copy it to clipboard
@@ -157,19 +172,19 @@ $(document).ready(function () {
         selectText('#textarea-url');
         document.execCommand("copy");
         $('#textarea-url').removeClass('border-secondary').addClass('border-success');
-        $('#btn-copy').addClass('text-success');
+        $('#btn-copy').addClass('btn-success');
         $('#copy-status').html(`<i class="fas fa-check-circle fa-lg"></i> Copied!`);
 
         $('#textarea-url').blur(function () {
           $('#textarea-url').removeClass('border-success').addClass('border-secondary');
-          $('#btn-copy').removeClass('text-success').addClass('text-secondary');
+          $('#btn-copy').removeClass('btn-success').addClass('btn-primary');
           $('#copy-status').html("");
         });
       });
 
     } catch (error) {
       $('#textarea-url').addClass('border border-danger');
-      $('#btn-copy').removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+      $('#btn-copy').removeClass('btn-secondary').addClass('btn-danger');
       $('#copy-status').removeClass('text-success').addClass('text-danger').html(`<i class="fas fa-times-circle fa-lg"></i> ERROR`);
       console.error("Ooops, unable to copy and select. " + error);
     }
@@ -223,6 +238,9 @@ $(document).ready(function () {
     let url = buildURL();
     buildResults(url);
     tryCopy();
+    if ($('#showPreview').is(':checked')) {
+      buildPreview(url);
+    };
     event.preventDefault();
   });
 
@@ -231,16 +249,24 @@ $(document).ready(function () {
     let url = buildURL();
     buildResults(url);
     tryCopy();
+    if ($('#showPreview').is(':checked')) {
+      buildPreview(url);
+    };
   });
 
   // Clear the form and delete all of the results HTML
   $('#btn-clear').click(function (event) {
     $('#results').empty();
+    $('#preview').empty();
     event.preventDefault();
     $(':text').val('');
+    $('#showPreview').prop('checked', false);
     $('#btn-submit').prop('disabled', true);
     link.authorPolaris = "";
     link.authorNormal = "";
     link.titlePolaris = "";
+    if($('#leftCol').hasClass('col-md-6')) {
+      $('#leftCol').removeClass('col-md-6').addClass('col-md-9');
+    };
   });
 });

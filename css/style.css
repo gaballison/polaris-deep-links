@@ -5,11 +5,18 @@ html {
 body {
   height: 100vh;
   font-family: 'PT Sans', sans-serif;
+  background: linear-gradient(#D0B6F3 0%, #704C5E 100%) no-repeat 100%;
+  background-attachment: fixed;
+}
+
+header h1 {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .link {
   display: inline-block;
   text-decoration: none;
+  color: lavenderblush;
 }
 
 .link:hover {
@@ -21,7 +28,7 @@ body {
   display: block;
   width: 0;
   height: 2px;
-  background: #6610f2;
+  background: lavenderblush;
   transition: width .3s;
 }
 
@@ -42,6 +49,41 @@ body {
   box-shadow: 0px 1px 7px 0.1px dimgray;
 }
 
+.card
+{
+  position: relative;
+}
+.card::before, .card::after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #444;
+  -webkit-box-shadow: 0 15px 10px #444;
+  -moz-box-shadow: 0 15px 10px #444;
+  box-shadow: 0 15px 10px #444;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.card::after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
 
 #textarea-url {
   font-size: 1.2em;
@@ -58,4 +100,12 @@ footer {
   font-size: .7em;
   padding: 20px;
   text-align: center;
+}
+
+footer a{
+  color: lavenderblush;
+}
+
+footer a:hover {
+  color: #B88C9E;
 }
