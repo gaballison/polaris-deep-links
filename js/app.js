@@ -126,7 +126,7 @@ $(document).ready(function () {
     // add the HTML for the constructed URL, including ability to select and copy
     $('#results').html(`
       <div class="card bg-light mb-3">
-        <h3 class="card-header">Encoded URL <small><span id="copy-status" class="text-success float-right"></span></small></h3>
+        <h3 class="card-header d-flex justify-content-between align-items-center">Encoded URL <span id="copy-status" class="text-success float-right"></span></h3>
           <div class="card-body">
             <textarea class="form-control border border-secondary text-monospace" rows="3" col="10" id="textarea-url">${url.polaris}</textarea>
 
