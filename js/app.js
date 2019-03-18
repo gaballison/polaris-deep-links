@@ -33,7 +33,7 @@ $(document).ready(function () {
     let input = inputAuthor.trim();
 
     // create array of individual words from the input
-    let matches = input.match(/[\w.-]*/g);
+    let matches = input.match(/[\w.|-|']*/g);
     let len = matches.length;
     console.log(`There are ${len} items in matches`);
     console.dir(matches);
