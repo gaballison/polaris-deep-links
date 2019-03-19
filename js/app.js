@@ -6,7 +6,7 @@ $(document).ready(function () {
     authorPolaris: "",
     authorNormal: "",
     prefixPolaris: "https://jeffersonville.polarislibrary.com/view.aspx?",
-    prefixWorldCat: "https://www.worldcat.org/search?q=", 
+    prefixWorldCat: "https://www.worldcat.org/search?q=",
     prefixGoogle: "https://www.google.com/search?safe=strict&tbm=isch&q=book+cover+",
   };
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
     let input = inputAuthor.trim();
 
     // create array of individual words from the input
-    let matches = input.match(/[\w.|-|']*/g);
+    let matches = input.match(/[\w.|\w-|\w']*/g);
     let len = matches.length;
     console.log(`There are ${len} items in matches`);
     console.dir(matches);
@@ -138,7 +138,7 @@ $(document).ready(function () {
                 <a class="btn btn-info" href="${url.worldcat}" target="_blank"><i class="fas fa-globe"></i> WorldCat</a>
                 <a class="btn btn-info" href="${url.google}" target="_blank"><i class="fas fa-images"></i> Google Images</a>
               </div>
-            </div>          
+            </div>
           </div>
       </div>
     `);
