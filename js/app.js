@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+
   // Define the "link" object to hold all formatted data
   const link = {
     titlePolaris: "",

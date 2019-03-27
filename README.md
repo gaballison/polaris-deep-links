@@ -81,7 +81,7 @@ The simplest solution I've found so far is to use what our integrated library sy
         let input = inputAuthor.trim();
 
         // create array of individual words from the input
-        let matches = input.match(/[\w.-]*/g);
+        let matches = input.match(/[\w.|\w-|\w']*/g);
         let len = matches.length;
 
         /*  the surname is the last item in the array,
