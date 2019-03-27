@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+  // enable Bootstrap's tooltip functionality
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   });
